@@ -71,10 +71,17 @@ def getRango(start_ip, rango):
     end_ip = start_ip.devolverConRango(total)
     print("IP final: "+str(end_ip))
 
+def paramError():
+    print(sys.argv[0]+" IP/MASK")
 
 if __name__ == '__main__':
-    ip1 = direccionIP()
-    getRango(ip1,6)
+    if len(sys.argv) != 2:
+        paramError()
+        exit -1
+
+    ip1 = direccionIP(sys.argv[1].split('/')[0])
+    getRango(ip1,int(sys.argv[1].split('/')[1]))
+
 
     
 
