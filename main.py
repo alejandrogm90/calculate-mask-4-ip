@@ -2,7 +2,7 @@
 
 #
 #
-#       Copyright 2017 Alejandro Gomez
+#       Copyright 2020 Alejandro Gomez
 #
 #       This program is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -36,17 +36,22 @@ class direccionIP:
         self.direccion.append(int(numero.split(".")[3]))
 
     def sumar(self):
-        if self.direccion[3] < 256:
+        if self.direccion[3] < 255:
             self.direccion[3] = self.direccion[3] + 1
-        elif self.direccion[2] < 256:
+        elif self.direccion[2] < 255:
             self.direccion[2] = self.direccion[2] + 1
             self.direccion[3] = 0
-        elif self.direccion[2] < 256:
+        elif self.direccion[2] < 255:
             self.direccion[1] = self.direccion[1] + 1
             self.direccion[3] = 0
             self.direccion[2] = 0
-        elif self.direccion[0] < 256:
+        elif self.direccion[0] < 255:
             self.direccion[0] = self.direccion[0] + 1
+            self.direccion[3] = 0
+            self.direccion[2] = 0
+            self.direccion[1] = 0
+        if self.direccion[3] > 255:
+            self.direccion[0] = 0
             self.direccion[3] = 0
             self.direccion[2] = 0
             self.direccion[1] = 0
