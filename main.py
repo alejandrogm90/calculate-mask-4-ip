@@ -27,54 +27,53 @@ LOCAL_BROADCAST = "255.255.255.0"
 DEFAULT_GATEWAY = "192.168.1.1"
 
 # CLASES
-class direccionIP:
+class myIP:
     def __init__(self, numero="0.0.0.0"):
-        self.direccion = list()
-        self.direccion.append(int(numero.split(".")[0]))
-        self.direccion.append(int(numero.split(".")[1]))
-        self.direccion.append(int(numero.split(".")[2]))
-        self.direccion.append(int(numero.split(".")[3]))
+        self.direction = list()
+        self.direction.append(int(numero.split(".")[0]))
+        self.direction.append(int(numero.split(".")[1]))
+        self.direction.append(int(numero.split(".")[2]))
+        self.direction.append(int(numero.split(".")[3]))
 
-    def sumar(self):
-        if self.direccion[3] < 255:
-            self.direccion[3] = self.direccion[3] + 1
-        elif self.direccion[2] < 255:
-            self.direccion[2] = self.direccion[2] + 1
-            self.direccion[3] = 0
-        elif self.direccion[2] < 255:
-            self.direccion[1] = self.direccion[1] + 1
-            self.direccion[3] = 0
-            self.direccion[2] = 0
-        elif self.direccion[0] < 255:
-            self.direccion[0] = self.direccion[0] + 1
-            self.direccion[3] = 0
-            self.direccion[2] = 0
-            self.direccion[1] = 0
-        if self.direccion[3] > 255:
-            self.direccion[0] = 0
-            self.direccion[3] = 0
-            self.direccion[2] = 0
-            self.direccion[1] = 0
+    def add(self):
+        if self.direction[3] < 255:
+            self.direction[3] = self.direction[3] + 1
+        elif self.direction[2] < 255:
+            self.direction[2] = self.direction[2] + 1
+            self.direction[3] = 0
+        elif self.direction[2] < 255:
+            self.direction[1] = self.direction[1] + 1
+            self.direction[3] = 0
+            self.direction[2] = 0
+        elif self.direction[0] < 255:
+            self.direction[0] = self.direction[0] + 1
+            self.direction[3] = 0
+            self.direction[2] = 0
+            self.direction[1] = 0
+        if self.direction[3] > 255:
+            self.direction[0] = 0
+            self.direction[3] = 0
+            self.direction[2] = 0
+            self.direction[1] = 0
         else:
             return False
         return True
 
-    def devolverConRango(self,total):
+    def getFinalDirection(self,total):
         for elemento in range(0,total):
-            self.sumar()
-            #print("----"+str(self))
+            self.add()
         return self
 
     def __str__(self):
-        return str(self.direccion[0])+"."+str(self.direccion[1])+"."+str(self.direccion[2])+"."+str(self.direccion[3])
+        return str(self.direction[0])+"."+str(self.direction[1])+"."+str(self.direction[2])+"."+str(self.direction[3])
 
 # FUNCIONES
-def getRango(start_ip, rango):
-    total = int(math.pow(2, rango))
-    print("Total de IPs del rango: "+str(total))
-    print("IP inicial: "+str(start_ip))
-    end_ip = start_ip.devolverConRango(total)
-    print("IP final: "+str(end_ip))
+def printOutPut(start_ip, final_range):
+    total_ips = int(math.pow(2, final_range))
+    print("Total IPs: "+str(total_ips))
+    print("Initial IP: "+str(start_ip))
+    end_ip = start_ip.getFinalDirection(total_ips)
+    print("Final IP: "+str(end_ip))
 
 def paramError():
     print(sys.argv[0]+" IP/MASK")
@@ -84,8 +83,8 @@ if __name__ == '__main__':
         paramError()
         exit -1
 
-    ip1 = direccionIP(sys.argv[1].split('/')[0])
-    getRango(ip1,int(sys.argv[1].split('/')[1]))
+    ip1 = myIP(sys.argv[1].split('/')[0])
+    printOutPut(ip1,int(sys.argv[1].split('/')[1]))
 
 
     
